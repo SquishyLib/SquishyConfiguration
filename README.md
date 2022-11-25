@@ -1,5 +1,7 @@
 Easy to use java yaml configuration API
 
+For more information see the [wiki!](https://github.com/smuddgge/SquishyYaml/wiki)
+
 # Dependency
 
 Replace `Tag` with this number
