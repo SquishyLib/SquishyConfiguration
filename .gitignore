@@ -45,3 +45,4 @@ target/*
 .DS_Store
 .idea/*
 .DS_Store
+SquishyYaml/src/main/resources/test.yaml
