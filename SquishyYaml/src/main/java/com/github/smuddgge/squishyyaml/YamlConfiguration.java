@@ -1,9 +1,7 @@
 package com.github.smuddgge.squishyyaml;
 
-import com.esotericsoftware.yamlbeans.YamlWriter;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.SafeConstructor;
 
 import java.io.*;
 import java.util.HashMap;
