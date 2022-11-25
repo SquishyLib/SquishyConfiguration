@@ -42,4 +42,6 @@ target/*
 .DS_Store
 .idea/*
 .DS_Store
+
+# Test config
 SquishyYaml/src/main/resources/test.yaml
