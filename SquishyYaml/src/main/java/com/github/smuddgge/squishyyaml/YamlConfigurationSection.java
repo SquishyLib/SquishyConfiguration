@@ -1,6 +1,8 @@
 package com.github.smuddgge.squishyyaml;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -74,12 +76,12 @@ public class YamlConfigurationSection implements ConfigurationSection {
     }
 
     @Override
-    public String getRootPath() {
+    public String getBasePath() {
         return this.rootPath;
     }
 
     @Override
-    public String getRootPath(String path) {
+    public String getBasePath(String path) {
         if (this.rootPath == null) return path;
         if (path == null) return this.rootPath;
 
@@ -88,12 +90,12 @@ public class YamlConfigurationSection implements ConfigurationSection {
 
     @Override
     public void set(Object value) {
-        this.baseSection.setInSection(this.getRootPath(), value);
+        this.baseSection.setInSection(this.getBasePath(), value);
     }
 
     @Override
     public void set(String path, Object value) {
-        this.baseSection.setInSection(this.getRootPath(path), value);
+        this.baseSection.setInSection(this.getBasePath(path), value);
     }
 
     @Override
@@ -113,7 +115,7 @@ public class YamlConfigurationSection implements ConfigurationSection {
             // Get the subsection
             YamlConfigurationSection section = new YamlConfigurationSection(
                     this.baseSection.getData(),
-                    getRootPath(key),
+                    getBasePath(key),
                     this.getSection(key).getData()
             );
 
@@ -142,14 +144,14 @@ public class YamlConfigurationSection implements ConfigurationSection {
     }
 
     @Override
-    public Object get(String path) {
+    public Object get(String path, Object alternative) {
         if (path.contains(".")) {
-            // Get the child path
+            // The child path
             String key = path.split("\\.")[0];
-            // Get the remaining children
+            // The remaining children
             String remainingPath = path.substring(key.length() + 1);
 
-            // Create the section if it doesn't exist
+            // Temporally create the section if it doesn't exist
             if (this.getSection(key) == null) {
                 this.data.put(key, new HashMap<String, Object>());
             }
@@ -157,18 +159,24 @@ public class YamlConfigurationSection implements ConfigurationSection {
             return this.getSection(key).get(remainingPath);
         }
 
-        return this.data.get(path);
+        return this.data.getOrDefault(path, alternative);
+    }
+
+    @Override
+    public Object get(String path) {
+        return this.get(path, null);
     }
 
     @Override
     public ConfigurationSection getSection(String path) {
         if (path == null) return this;
 
-        // Return a new empty section if it isn't a section
+        // Return a new empty section if it does not exist
         if (!(this.get(path) instanceof Map)) {
-            return new YamlConfigurationSection(this.baseSection.getData(), this.getRootPath(path), new HashMap<>());
+            return new YamlConfigurationSection(this.baseSection.getData(), this.getBasePath(path), new HashMap<>());
         }
 
+        // Get the section and return it
         Map<?, ?> unknownMap = (Map<?, ?>) this.get(path);
         Map<String, Object> knownMap = new HashMap<>();
 
@@ -176,6 +184,95 @@ public class YamlConfigurationSection implements ConfigurationSection {
             knownMap.put((String) entry.getKey(), entry.getValue());
         }
 
-        return new YamlConfigurationSection(this.baseSection.getData(), this.getRootPath(path), knownMap);
+        return new YamlConfigurationSection(this.baseSection.getData(), this.getBasePath(path), knownMap);
+    }
+
+    @Override
+    public List<String> getKeys() {
+        if (this.data == null) return null;
+        return new ArrayList<>(this.data.keySet());
+    }
+
+    @Override
+    public List<String> getKeys(String path) {
+        return this.getSection(path).getKeys();
+    }
+
+    @Override
+    public List<?> getList(String path, List<?> alternative) {
+        Object object = this.get(path);
+        return object instanceof List<?> ? (List<?>) object : alternative;
+    }
+
+    @Override
+    public List<?> getList(String path) {
+        return this.getList(path, null);
+    }
+
+    @Override
+    public List<String> getListString(String path, List<String> alternative) {
+        List<String> list = new ArrayList<>();
+
+        for (Object item : this.getList(path, new ArrayList<>())) {
+            if (!(item instanceof String)) return alternative;
+            list.add((String) item);
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<String> getListString(String path) {
+        return this.getListString(path, null);
+    }
+
+    @Override
+    public List<Integer> getListInteger(String path, List<Integer> alternative) {
+        List<Integer> list = new ArrayList<>();
+
+        for (Object item : this.getList(path, new ArrayList<>())) {
+            if (!(item instanceof Integer)) return alternative;
+            list.add((Integer) item);
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<Integer> getListInteger(String path) {
+        return this.getListInteger(path, null);
+    }
+
+    @Override
+    public String getString(String path, String alternative) {
+        Object object = this.get(path);
+        return object instanceof String ? (String) object : alternative;
+    }
+
+    @Override
+    public String getString(String path) {
+        return this.getString(path, null);
+    }
+
+    @Override
+    public int getInteger(String path, int alternative) {
+        Object object = this.get(path);
+        return object instanceof Integer ? (Integer) object : alternative;
+    }
+
+    @Override
+    public int getInteger(String path) {
+        return this.getInteger(path, -1);
+    }
+
+    @Override
+    public boolean getBoolean(String path, boolean alternative) {
+        Object object = this.get(path);
+        return object instanceof Boolean ? (Boolean) object : alternative;
+    }
+
+    @Override
+    public boolean getBoolean(String path) {
+        return this.getBoolean(path, false);
     }
 }

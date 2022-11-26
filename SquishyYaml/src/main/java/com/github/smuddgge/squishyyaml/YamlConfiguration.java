@@ -45,8 +45,8 @@ public class YamlConfiguration extends YamlConfigurationSection implements Confi
      * Used to create a representation of a configuration file
      *
      * @param folder The instance of the folder location
-     * @param path The path within the folder
-     *             You should include the extension name
+     * @param path   The path within the folder
+     *               You should include the extension name
      */
     public YamlConfiguration(File folder, String path) {
         super(new HashMap<>());
@@ -77,7 +77,6 @@ public class YamlConfiguration extends YamlConfigurationSection implements Confi
         if (!this.file.getParentFile().exists()) {
             boolean sucsess = this.file.getParentFile().mkdirs();
 
-            // TODO Add exception
             if (!sucsess) return false;
         }
 
