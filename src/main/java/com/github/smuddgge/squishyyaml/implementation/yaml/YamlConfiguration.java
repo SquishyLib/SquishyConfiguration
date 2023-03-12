@@ -1,5 +1,6 @@
-package com.github.smuddgge.squishyyaml;
+package com.github.smuddgge.squishyyaml.implementation.yaml;
 
+import com.github.smuddgge.squishyyaml.interfaces.Configuration;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -55,12 +56,7 @@ public class YamlConfiguration extends YamlConfigurationSection implements Confi
         this.path = path;
     }
 
-    /**
-     * Used to get the absolute path
-     * Combines the absolute path from the folder and path
-     *
-     * @return The absolute path
-     */
+    @Override
     public String getAbsolutePath() {
         if (this.path == null || this.path.equals("")) {
             return this.folder.getAbsolutePath();
@@ -110,11 +106,7 @@ public class YamlConfiguration extends YamlConfigurationSection implements Confi
         return true;
     }
 
-    /**
-     * Used to save the instance of the data to the configuration file
-     *
-     * @return True if successful
-     */
+    @Override
     public boolean save() {
         DumperOptions dumperOptions = new DumperOptions();
         dumperOptions.setPrettyFlow(true);

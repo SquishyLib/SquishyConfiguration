@@ -1,4 +1,6 @@
-package com.github.smuddgge.squishyyaml;
+package com.github.smuddgge.squishyyaml.implementation.yaml;
+
+import com.github.smuddgge.squishyyaml.interfaces.ConfigurationSection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +55,7 @@ public class YamlConfigurationSection implements ConfigurationSection {
         this.rootPath = path;
 
         this.data = base;
-        this.data = this.getSection(path).getData();
+        this.data = this.getSection(path).getMap();
     }
 
     /**
@@ -68,11 +70,6 @@ public class YamlConfigurationSection implements ConfigurationSection {
         this.baseSection = new YamlConfigurationSection(base);
         this.rootPath = path;
         this.data = data;
-    }
-
-    @Override
-    public Map<String, Object> getData() {
-        return this.data;
     }
 
     @Override
@@ -114,16 +111,16 @@ public class YamlConfigurationSection implements ConfigurationSection {
 
             // Get the subsection
             YamlConfigurationSection section = new YamlConfigurationSection(
-                    this.baseSection.getData(),
+                    this.baseSection.getMap(),
                     getBasePath(key),
-                    this.getSection(key).getData()
+                    this.getSection(key).getMap()
             );
 
             // Set the value in the section
             section.setInSection(remainingPath, value);
 
             // Get the updated section and update this section to the new data
-            this.data.put(key, section.getData());
+            this.data.put(key, section.getMap());
             return;
         }
 
@@ -173,7 +170,7 @@ public class YamlConfigurationSection implements ConfigurationSection {
 
         // Return a new empty section if it does not exist
         if (!(this.get(path) instanceof Map)) {
-            return new YamlConfigurationSection(this.baseSection.getData(), this.getBasePath(path), new HashMap<>());
+            return new YamlConfigurationSection(this.baseSection.getMap(), this.getBasePath(path), new HashMap<>());
         }
 
         // Get the section and return it
@@ -184,7 +181,7 @@ public class YamlConfigurationSection implements ConfigurationSection {
             knownMap.put((String) entry.getKey(), entry.getValue());
         }
 
-        return new YamlConfigurationSection(this.baseSection.getData(), this.getBasePath(path), knownMap);
+        return new YamlConfigurationSection(this.baseSection.getMap(), this.getBasePath(path), knownMap);
     }
 
     @Override
@@ -196,6 +193,40 @@ public class YamlConfigurationSection implements ConfigurationSection {
     @Override
     public List<String> getKeys(String path) {
         return this.getSection(path).getKeys();
+    }
+
+
+    @Override
+    public String getString(String path, String alternative) {
+        Object object = this.get(path);
+        return object instanceof String ? (String) object : alternative;
+    }
+
+    @Override
+    public String getString(String path) {
+        return this.getString(path, null);
+    }
+
+    @Override
+    public int getInteger(String path, int alternative) {
+        Object object = this.get(path);
+        return object instanceof Integer ? (Integer) object : alternative;
+    }
+
+    @Override
+    public int getInteger(String path) {
+        return this.getInteger(path, -1);
+    }
+
+    @Override
+    public boolean getBoolean(String path, boolean alternative) {
+        Object object = this.get(path);
+        return object instanceof Boolean ? (Boolean) object : alternative;
+    }
+
+    @Override
+    public boolean getBoolean(String path) {
+        return this.getBoolean(path, false);
     }
 
     @Override
@@ -244,35 +275,29 @@ public class YamlConfigurationSection implements ConfigurationSection {
     }
 
     @Override
-    public String getString(String path, String alternative) {
-        Object object = this.get(path);
-        return object instanceof String ? (String) object : alternative;
+    public Map<String, Object> getMap() {
+        return this.data;
     }
 
     @Override
-    public String getString(String path) {
-        return this.getString(path, null);
+    public Map<String, Object> getMap(String path, Map<String, Object> alternative) {
+        try {
+            Map<?, ?> temp = (Map<?, ?>) this.get(path);
+            Map<String, Object> map = new HashMap<>();
+
+            for (Map.Entry<?, ?> entry : temp.entrySet()) {
+                map.put(entry.getKey().toString(), entry.getValue());
+            }
+
+            return map;
+
+        } catch (Exception exception) {
+            return alternative;
+        }
     }
 
     @Override
-    public int getInteger(String path, int alternative) {
-        Object object = this.get(path);
-        return object instanceof Integer ? (Integer) object : alternative;
-    }
-
-    @Override
-    public int getInteger(String path) {
-        return this.getInteger(path, -1);
-    }
-
-    @Override
-    public boolean getBoolean(String path, boolean alternative) {
-        Object object = this.get(path);
-        return object instanceof Boolean ? (Boolean) object : alternative;
-    }
-
-    @Override
-    public boolean getBoolean(String path) {
-        return this.getBoolean(path, false);
+    public Map<String, Object> getMap(String path) {
+        return this.getMap(path, null);
     }
 }

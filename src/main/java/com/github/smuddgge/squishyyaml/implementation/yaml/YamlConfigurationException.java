@@ -1,4 +1,4 @@
-package com.github.smuddgge.squishyyaml;
+package com.github.smuddgge.squishyyaml.implementation.yaml;
 
 /**
  * Represents a yaml configuration exception

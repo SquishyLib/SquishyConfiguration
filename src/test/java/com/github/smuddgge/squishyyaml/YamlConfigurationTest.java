@@ -1,5 +1,6 @@
 package com.github.smuddgge.squishyyaml;
 
+import com.github.smuddgge.squishyyaml.implementation.yaml.YamlConfiguration;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TestYamlConfiguration {
+public class YamlConfigurationTest {
 
     @Test
     public void testGetKeys() throws Exception {

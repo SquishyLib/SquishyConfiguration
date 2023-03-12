@@ -1,4 +1,4 @@
-package com.github.smuddgge.squishyyaml;
+package com.github.smuddgge.squishyyaml.interfaces;
 
 import java.util.List;
 import java.util.Map;
@@ -7,13 +7,6 @@ import java.util.Map;
  * Represents a configuration section interface.
  */
 public interface ConfigurationSection {
-
-    /**
-     * Used to get the configuration section as a map.
-     *
-     * @return A map representing the configuration section.
-     */
-    Map<String, Object> getData();
 
     /**
      * Used to get the location of the configuration
@@ -57,7 +50,8 @@ public interface ConfigurationSection {
     void set(String path, Object value);
 
     /**
-     * Used to set or create a value in the configuration section.
+     * Used to set or create a value in the configuration section
+     * and not save it to the base section.
      * <ul>
      *     <li>This will only be saved in this configuration section
      *         and not update the base section.</li>
@@ -124,6 +118,81 @@ public interface ConfigurationSection {
      * @return The configuration sections keys.
      */
     List<String> getKeys(String path);
+
+    /**
+     * Used to get a string.
+     * <ul>
+     *     <li>If the path does not exist it will return the alternative value.</li>
+     *     <li>If the value is not a string it will return the alternative value.</li>
+     * </ul>
+     *
+     * @param path        The location of the string in the configuration section.
+     * @param alternative The alternative value.
+     * @return The requested string.
+     */
+    String getString(String path, String alternative);
+
+    /**
+     * Used to get a string.
+     * <ul>
+     *     <li>If the path does not exist it will return null.</li>
+     *     <li>If the value is not a string it will return null.</li>
+     * </ul>
+     *
+     * @param path The location of the string in the configuration section.
+     * @return The requested string.
+     */
+    String getString(String path);
+
+    /**
+     * Used to get an integer.
+     * <ul>
+     *     <li>If the path does not exist it will return the alternative value.</li>
+     *     <li>If the value is not a integer it will return the alternative value.</li>
+     * </ul>
+     *
+     * @param path        The location of the integer in the configuration section.
+     * @param alternative The alternative value.
+     * @return The requested integer.
+     */
+    int getInteger(String path, int alternative);
+
+    /**
+     * Used to get an integer.
+     * <ul>
+     *     <li>If the path does not exist it will return -1.</li>
+     *     <li>If the value is not a integer it will return -1.</li>
+     * </ul>
+     *
+     * @param path The location of the integer in the configuration section.
+     * @return The requested integer.
+     */
+    int getInteger(String path);
+
+    /**
+     * Used to get a boolean.
+     * <ul>
+     *     <li>If the path does not exist it will return the alternative value.</li>
+     *     <li>If the value is not a boolean it will return the alternative value.</li>
+     * </ul>
+     *
+     * @param path        The location of the boolean in the configuration section.
+     * @param alternative The alternative value.
+     * @return The requested boolean.
+     */
+    boolean getBoolean(String path, boolean alternative);
+
+    /**
+     * Used to get a boolean.
+     * <ul>
+     *     <li>If the path does not exist it will return false.</li>
+     *     <li>If the value is not a boolean it will return false.</li>
+     * </ul>
+     *
+     * @param path The location of the boolean in the configuration section.
+     * @return The requested boolean.
+     */
+    boolean getBoolean(String path);
 
     /**
      * Used to get a list.
@@ -201,77 +270,32 @@ public interface ConfigurationSection {
     List<Integer> getListInteger(String path);
 
     /**
-     * Used to get a string.
-     * <ul>
-     *     <li>If the path does not exist it will return the alternative value.</li>
-     *     <li>If the value is not a string it will return the alternative value.</li>
-     * </ul>
+     * Used to get the configuration section as a map.
      *
-     * @param path        The location of the string in the configuration section.
-     * @param alternative The alternative value.
-     * @return The requested string.
+     * @return A map representing the configuration section.
      */
-    String getString(String path, String alternative);
+    Map<String, Object> getMap();
 
     /**
-     * Used to get a string.
+     * Used to get the configuration section as a map.
+     * <ul>
+     *     <li>If the path does not exist it will return the alternative value.</li>
+     *     <li>If the value is not a map it will return the alternative value.</li>
+     * </ul>
+     *
+     * @param alternative The alternative value.
+     * @return A map representing the configuration section.
+     */
+    Map<String, Object> getMap(String path, Map<String, Object> alternative);
+
+    /**
+     * Used to get the configuration section as a map.
      * <ul>
      *     <li>If the path does not exist it will return null.</li>
-     *     <li>If the value is not a string it will return null.</li>
+     *     <li>If the value is not a map it will return null.</li>
      * </ul>
      *
-     * @param path The location of the string in the configuration section.
-     * @return The requested string.
+     * @return A map representing the configuration section.
      */
-    String getString(String path);
-
-    /**
-     * Used to get an integer.
-     * <ul>
-     *     <li>If the path does not exist it will return the alternative value.</li>
-     *     <li>If the value is not a integer it will return the alternative value.</li>
-     * </ul>
-     *
-     * @param path        The location of the integer in the configuration section.
-     * @param alternative The alternative value.
-     * @return The requested integer.
-     */
-    int getInteger(String path, int alternative);
-
-    /**
-     * Used to get an integer.
-     * <ul>
-     *     <li>If the path does not exist it will return -1.</li>
-     *     <li>If the value is not a integer it will return -1.</li>
-     * </ul>
-     *
-     * @param path The location of the integer in the configuration section.
-     * @return The requested integer.
-     */
-    int getInteger(String path);
-
-    /**
-     * Used to get a boolean.
-     * <ul>
-     *     <li>If the path does not exist it will return the alternative value.</li>
-     *     <li>If the value is not a boolean it will return the alternative value.</li>
-     * </ul>
-     *
-     * @param path        The location of the boolean in the configuration section.
-     * @param alternative The alternative value.
-     * @return The requested boolean.
-     */
-    boolean getBoolean(String path, boolean alternative);
-
-    /**
-     * Used to get a boolean.
-     * <ul>
-     *     <li>If the path does not exist it will return false.</li>
-     *     <li>If the value is not a boolean it will return false.</li>
-     * </ul>
-     *
-     * @param path The location of the boolean in the configuration section.
-     * @return The requested boolean.
-     */
-    boolean getBoolean(String path);
+    Map<String, Object> getMap(String path);
 }

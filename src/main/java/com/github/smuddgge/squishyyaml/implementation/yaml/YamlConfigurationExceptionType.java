@@ -1,4 +1,4 @@
-package com.github.smuddgge.squishyyaml;
+package com.github.smuddgge.squishyyaml.implementation.yaml;
 
 public enum YamlConfigurationExceptionType {
     WRONG_TYPE("This path contains the wrong type: <var>");
