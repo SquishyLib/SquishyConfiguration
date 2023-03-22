@@ -88,6 +88,33 @@ public interface ConfigurationSection {
     Object get(String path);
 
     /**
+     * Used to fill a class with the configuration values.
+     * The section will be mapped on to the class.
+     * <ul>
+     *     <li>If the path does not exist the alternative value will be returned.</li>
+     * </ul>
+     * @param <T> The class type.
+     * @param path The location of the value.
+     * @param clazz The class to map the values onto.
+     * @param alternative The alternative value.
+     * @return A instance of the class.
+     */
+    <T> T get(String path, Class<T> clazz, Object alternative);
+
+    /**
+     * Used to fill a class with the configuration values.
+     * The section will be mapped on to the class.
+     * <ul>
+     *     <li>If the path does not exist null will be returned.</li>
+     * </ul>
+     * @param <T> The class type.
+     * @param path The location of the value.
+     * @param clazz The class to map the values onto.
+     * @return A instance of the class.
+     */
+    <T> T get(String path, Class<T> clazz);
+
+    /**
      * Used to get a configuration section.
      * <ul>
      *     <li>If the path does not exist it will create a temporary empty section.</li>

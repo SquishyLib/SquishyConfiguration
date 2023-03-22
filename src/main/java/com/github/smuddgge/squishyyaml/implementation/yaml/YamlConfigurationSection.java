@@ -165,6 +165,30 @@ public class YamlConfigurationSection implements ConfigurationSection {
     }
 
     @Override
+    public <T> T get(String path, Class<T> clazz, Object alternative) {
+        Gson gson = new Gson();
+
+        Map<String, Object> map = this.getMap(path);
+        if (map == null) return alternative;
+
+        try {
+            JsonElement jsonElement = gson.toJsonTree(map);
+            T t = gson.fromJson(jsonElement, clazz.class);
+
+            if (t == null) return alternative;
+            return t;
+
+        } catch(Exception exception) {
+            return alternative;
+        }
+    }
+
+    @Override
+    public <T> T get(String path, Class<T> clazz) {
+        return this.get(path, clazz, null);
+    }
+
+    @Override
     public ConfigurationSection getSection(String path) {
         if (path == null) return this;
 
