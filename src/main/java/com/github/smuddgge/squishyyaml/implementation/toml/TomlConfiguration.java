@@ -1,18 +1,9 @@
-package com.github.smuddgge.squishyyaml.implementation.yaml;
-
-import com.github.smuddgge.squishyyaml.interfaces.Configuration;
-import org.yaml.snakeyaml.DumperOptions;
-import org.yaml.snakeyaml.Yaml;
-
-import java.io.*;
-import java.util.HashMap;
-
-import static org.yaml.snakeyaml.DumperOptions.FlowStyle.BLOCK;
+package com.github.smuddgge.squishyyaml.implementation.toml;
 
 /**
  * Represents a yaml configuration file
  */
-public class YamlConfiguration extends YamlConfigurationSection implements MemoryConfigurationSection {
+public class TomlConfiguration extends MemoryConfigurationSection implements Configuration {
 
     /**
      * Represents the configuration file instance
@@ -34,7 +25,7 @@ public class YamlConfiguration extends YamlConfigurationSection implements Memor
      *
      * @param file Instance of the configuration file
      */
-    public YamlConfiguration(File file) {
+    public TomlConfiguration(File file) {
         super(new HashMap<>());
         this.file = file;
 
@@ -49,7 +40,7 @@ public class YamlConfiguration extends YamlConfigurationSection implements Memor
      * @param path   The path within the folder
      *               You should include the extension name
      */
-    public YamlConfiguration(File folder, String path) {
+    public TomlConfiguration(File folder, String path) {
         super(new HashMap<>());
 
         this.folder = folder;
@@ -91,38 +82,16 @@ public class YamlConfiguration extends YamlConfigurationSection implements Memor
         }
 
         // Load the file content
-        try (InputStream inputStream = new FileInputStream(this.file)) {
-
-            Yaml yaml = new Yaml();
-            this.data = yaml.load(inputStream);
-
-            if (this.data == null) this.data = new HashMap<>();
-
-        } catch (IOException exception) {
-            exception.printStackTrace();
-            return false;
-        }
+        Toml toml = new Toml().read(this.file);
+        this.data = toml.toMap();
 
         return true;
     }
 
     @Override
     public boolean save() {
-        DumperOptions dumperOptions = new DumperOptions();
-        dumperOptions.setPrettyFlow(true);
-        dumperOptions.setDefaultFlowStyle(BLOCK);
-
-        Yaml yaml = new Yaml(dumperOptions);
-
-        try {
-
-            FileWriter writer = new FileWriter(this.file);
-            yaml.dump(this.data, writer);
-
-        } catch (IOException exception) {
-            exception.printStackTrace();
-            return false;
-        }
+        TomlWriter tomlWriter = new TomlWriter();
+        tomlWriter.write(this.data, this.file);
 
         return true;
     }
