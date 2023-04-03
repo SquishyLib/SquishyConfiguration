@@ -1,6 +1,7 @@
-package com.github.smuddgge.squishyyaml.implementation.yaml;
+package com.github.smuddgge.squishyconfiguration.implementation.yaml;
 
-import com.github.smuddgge.squishyyaml.interfaces.Configuration;
+import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
+import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -12,7 +13,7 @@ import static org.yaml.snakeyaml.DumperOptions.FlowStyle.BLOCK;
 /**
  * Represents a yaml configuration file
  */
-public class YamlConfiguration extends YamlConfigurationSection implements MemoryConfigurationSection {
+public class YamlConfiguration extends MemoryConfigurationSection implements Configuration {
 
     /**
      * Represents the configuration file instance

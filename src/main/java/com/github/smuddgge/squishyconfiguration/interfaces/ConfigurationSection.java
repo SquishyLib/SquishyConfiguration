@@ -1,4 +1,4 @@
-package com.github.smuddgge.squishyyaml.interfaces;
+package com.github.smuddgge.squishyconfiguration.interfaces;
 
 import java.util.List;
 import java.util.Map;
@@ -99,7 +99,7 @@ public interface ConfigurationSection {
      * @param alternative The alternative value.
      * @return A instance of the class.
      */
-    <T> T get(String path, Class<T> clazz, Object alternative);
+    <T> T getClass(String path, Class<T> clazz, T alternative);
 
     /**
      * Used to fill a class with the configuration values.
@@ -112,7 +112,7 @@ public interface ConfigurationSection {
      * @param clazz The class to map the values onto.
      * @return A instance of the class.
      */
-    <T> T get(String path, Class<T> clazz);
+    <T> T getClass(String path, Class<T> clazz);
 
     /**
      * Used to get a configuration section.

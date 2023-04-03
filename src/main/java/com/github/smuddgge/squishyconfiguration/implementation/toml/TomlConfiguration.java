@@ -1,4 +1,13 @@
-package com.github.smuddgge.squishyyaml.implementation.toml;
+package com.github.smuddgge.squishyconfiguration.implementation.toml;
+
+import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
+import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
+import com.moandjiezana.toml.Toml;
+import com.moandjiezana.toml.TomlWriter;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * Represents a yaml configuration file
@@ -90,9 +99,13 @@ public class TomlConfiguration extends MemoryConfigurationSection implements Con
 
     @Override
     public boolean save() {
-        TomlWriter tomlWriter = new TomlWriter();
-        tomlWriter.write(this.data, this.file);
-
-        return true;
+        try {
+            TomlWriter tomlWriter = new TomlWriter();
+            tomlWriter.write(this.data, this.file);
+            return true;
+        } catch (IOException exception) {
+            exception.printStackTrace();
+            return false;
+        }
     }
 }

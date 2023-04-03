@@ -1,6 +1,9 @@
-package com.github.smuddgge.squishyyaml.implementation.yaml;
+package com.github.smuddgge.squishyconfiguration.memory;
 
-import com.github.smuddgge.squishyyaml.interfaces.ConfigurationSection;
+import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
+import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +18,7 @@ import java.util.Map;
  *   <li>Section: A section of configuration</li>
  * </ul>
  */
-public class YamlConfigurationSection implements ConfigurationSection {
+public class MemoryConfigurationSection implements ConfigurationSection {
 
     /**
      * Represents the base configuration section
@@ -37,7 +40,7 @@ public class YamlConfigurationSection implements ConfigurationSection {
      *
      * @param base The data located in the base configuration section
      */
-    public YamlConfigurationSection(Map<String, Object> base) {
+    public MemoryConfigurationSection(Map<String, Object> base) {
         this.data = base;
         this.baseSection = this;
         this.rootPath = null;
@@ -50,8 +53,8 @@ public class YamlConfigurationSection implements ConfigurationSection {
      * @param base The data of the base configuration section
      * @param path The location of the subsection in the base section
      */
-    public YamlConfigurationSection(Map<String, Object> base, String path) {
-        this.baseSection = new YamlConfigurationSection(base);
+    public MemoryConfigurationSection(Map<String, Object> base, String path) {
+        this.baseSection = new MemoryConfigurationSection(base);
         this.rootPath = path;
 
         this.data = base;
@@ -66,8 +69,8 @@ public class YamlConfigurationSection implements ConfigurationSection {
      * @param path The location of the subsection in the base section
      * @param data The data located in the subsection
      */
-    public YamlConfigurationSection(Map<String, Object> base, String path, Map<String, Object> data) {
-        this.baseSection = new YamlConfigurationSection(base);
+    public MemoryConfigurationSection(Map<String, Object> base, String path, Map<String, Object> data) {
+        this.baseSection = new MemoryConfigurationSection(base);
         this.rootPath = path;
         this.data = data;
     }
@@ -110,7 +113,7 @@ public class YamlConfigurationSection implements ConfigurationSection {
             }
 
             // Get the subsection
-            YamlConfigurationSection section = new YamlConfigurationSection(
+            MemoryConfigurationSection section = new MemoryConfigurationSection(
                     this.baseSection.getMap(),
                     getBasePath(key),
                     this.getSection(key).getMap()
@@ -165,7 +168,7 @@ public class YamlConfigurationSection implements ConfigurationSection {
     }
 
     @Override
-    public <T> T get(String path, Class<T> clazz, Object alternative) {
+    public <T> T getClass(String path, Class<T> clazz, T alternative) {
         Gson gson = new Gson();
 
         Map<String, Object> map = this.getMap(path);
@@ -173,7 +176,7 @@ public class YamlConfigurationSection implements ConfigurationSection {
 
         try {
             JsonElement jsonElement = gson.toJsonTree(map);
-            T t = gson.fromJson(jsonElement, clazz.class);
+            T t = gson.fromJson(jsonElement, clazz);
 
             if (t == null) return alternative;
             return t;
@@ -184,8 +187,8 @@ public class YamlConfigurationSection implements ConfigurationSection {
     }
 
     @Override
-    public <T> T get(String path, Class<T> clazz) {
-        return this.get(path, clazz, null);
+    public <T> T getClass(String path, Class<T> clazz) {
+        return this.getClass(path, clazz, null);
     }
 
     @Override
@@ -194,7 +197,7 @@ public class YamlConfigurationSection implements ConfigurationSection {
 
         // Return a new empty section if it does not exist
         if (!(this.get(path) instanceof Map)) {
-            return new YamlConfigurationSection(this.baseSection.getMap(), this.getBasePath(path), new HashMap<>());
+            return new MemoryConfigurationSection(this.baseSection.getMap(), this.getBasePath(path), new HashMap<>());
         }
 
         // Get the section and return it
@@ -205,7 +208,7 @@ public class YamlConfigurationSection implements ConfigurationSection {
             knownMap.put((String) entry.getKey(), entry.getValue());
         }
 
-        return new YamlConfigurationSection(this.baseSection.getMap(), this.getBasePath(path), knownMap);
+        return new MemoryConfigurationSection(this.baseSection.getMap(), this.getBasePath(path), knownMap);
     }
 
     @Override

@@ -1,9 +1,9 @@
-package com.github.smuddgge.squishyyaml.interfaces;
+package com.github.smuddgge.squishyconfiguration.interfaces;
 
 /**
  * Represents a configuration file interface
  */
-public interface Configuration {
+public interface Configuration extends ConfigurationSection {
 
     /**
      * Used to get the absolute path

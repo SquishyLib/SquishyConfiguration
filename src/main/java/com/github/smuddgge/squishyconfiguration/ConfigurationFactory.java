@@ -1,6 +1,9 @@
-package com.github.smuddgge.squishyyaml;
+package com.github.smuddgge.squishyconfiguration;
 
-import com.github.smuddgge.squishyyaml.interfaces.Configuration;
+import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
+import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
+
+import java.io.File;
 
 /**
  * <h1>Represents the configuration factory</h1>

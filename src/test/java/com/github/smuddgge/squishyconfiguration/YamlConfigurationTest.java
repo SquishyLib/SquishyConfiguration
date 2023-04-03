@@ -1,6 +1,7 @@
-package com.github.smuddgge.squishyyaml;
+package com.github.smuddgge.squishyconfiguration;
 
-import com.github.smuddgge.squishyyaml.implementation.yaml.YamlConfiguration;
+import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
+import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -10,9 +11,14 @@ import java.util.Objects;
 
 public class YamlConfigurationTest {
 
+    public static Configuration getConfiguration() {
+        ConfigurationFactory configurationFactory = ConfigurationFactory.YAML;
+        return configurationFactory.create(new File("src/main/resources"), "test.yaml");
+    }
+
     @Test
     public void testGetKeys() throws Exception {
-        YamlConfiguration configuration = new YamlConfiguration(new File("src/main/resources"), "test.yaml");
+        Configuration configuration = YamlConfigurationTest.getConfiguration();
 
         configuration.load();
         configuration.set("parent.child1", "string");
@@ -31,7 +37,7 @@ public class YamlConfigurationTest {
 
     @Test
     public void testGetListString() throws Exception {
-        YamlConfiguration configuration = new YamlConfiguration(new File("src/main/resources"), "test.yaml");
+        Configuration configuration = YamlConfigurationTest.getConfiguration();
 
         configuration.load();
         configuration.set("listString", new String[]{"string", "string"});
@@ -51,7 +57,7 @@ public class YamlConfigurationTest {
 
     @Test
     public void testGetString() throws Exception {
-        YamlConfiguration configuration = new YamlConfiguration(new File("src/main/resources"), "test.yaml");
+        Configuration configuration = YamlConfigurationTest.getConfiguration();
 
         configuration.load();
         configuration.set("string", "string");
@@ -67,13 +73,13 @@ public class YamlConfigurationTest {
 
     @Test
     public void testGetInteger() throws Exception {
-        YamlConfiguration configuration = new YamlConfiguration(new File("src/main/resources"), "test.yaml");
+        Configuration configuration = YamlConfigurationTest.getConfiguration();
 
         configuration.load();
         configuration.set("integer", 1);
         configuration.save();
 
-        YamlConfiguration configuration2 = new YamlConfiguration(new File("src/main/resources"), "test.yaml");
+        Configuration configuration2 = YamlConfigurationTest.getConfiguration();
         configuration2.load();
 
         if (!Objects.equals(configuration2.getInteger("integer"), 1)) {
