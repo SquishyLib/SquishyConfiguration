@@ -14,7 +14,7 @@ public class YamlConfigurationTest {
 
     public static Configuration getConfiguration() {
         ConfigurationFactory configurationFactory = ConfigurationFactory.YAML;
-        return configurationFactory.create(new File("src/main/resources"), "test.yaml");
+        return configurationFactory.create(new File("src/main/resources"), "test");
     }
 
     @Test
