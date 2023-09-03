@@ -14,6 +14,14 @@
     </properties>
 
     <dependencies>
+        <!-- Jet Brains Annotations -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>24.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- SnakeYaml -->
         <dependency>
             <groupId>org.yaml</groupId>
@@ -22,12 +30,14 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+
         <!-- Toml -->
         <dependency>
             <groupId>com.moandjiezana.toml</groupId>
             <artifactId>toml4j</artifactId>
             <version>0.7.2</version>
         </dependency>
+
         <!-- Jupiter -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -39,6 +49,7 @@
 
     <build>
         <plugins>
+            <!-- Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -48,6 +59,8 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+
+            <!-- Documentation -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -61,6 +74,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Shade Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

@@ -3,6 +3,7 @@ package com.github.smuddgge.squishyconfiguration;
 import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import org.junit.jupiter.api.Test;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -83,6 +84,38 @@ public class YamlConfigurationTest {
         configuration2.load();
 
         if (!Objects.equals(configuration2.getInteger("integer"), 1)) {
+            throw new Exception();
+        }
+    }
+
+    @Test
+    public void testGetLong() throws Exception {
+        Configuration configuration = YamlConfigurationTest.getConfiguration();
+
+        configuration.load();
+        configuration.set("long", 100L);
+        configuration.save();
+
+        Configuration configuration2 = YamlConfigurationTest.getConfiguration();
+        configuration2.load();
+
+        if (!Objects.equals(configuration2.getLong("long"), 100L)) {
+            throw new Exception();
+        }
+    }
+
+    @Test
+    public void testGetDouble() throws Exception {
+        Configuration configuration = YamlConfigurationTest.getConfiguration();
+
+        configuration.load();
+        configuration.set("double", 0D);
+        configuration.save();
+
+        Configuration configuration2 = YamlConfigurationTest.getConfiguration();
+        configuration2.load();
+
+        if (!Objects.equals(configuration2.getDouble("double"), 0D)) {
             throw new Exception();
         }
     }

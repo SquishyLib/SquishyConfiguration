@@ -1,7 +1,7 @@
 package com.github.smuddgge.squishyconfiguration.implementation.yaml;
 
 public enum YamlConfigurationExceptionType {
-    WRONG_TYPE("This path contains the wrong type: <var>");
+    CREATE_FILE("Attempted to create the file <var> but an error occurred.");
 
     /**
      * Represents the exception message

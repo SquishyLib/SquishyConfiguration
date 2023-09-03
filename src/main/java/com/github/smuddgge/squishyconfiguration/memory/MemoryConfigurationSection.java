@@ -246,6 +246,36 @@ public class MemoryConfigurationSection implements ConfigurationSection {
     }
 
     @Override
+    public long getLong(String path, long alternative) {
+        Object object = this.get(path);
+        if (object instanceof Integer) {
+            return Long.parseLong(object.toString());
+        }
+
+        return object instanceof Long ? (Long) object : alternative;
+    }
+
+    @Override
+    public long getLong(String path) {
+        return this.getLong(path, -1);
+    }
+
+    @Override
+    public double getDouble(String path, long alternative) {
+        Object object = this.get(path);
+        if (object instanceof Integer) {
+            return Double.parseDouble(object.toString());
+        }
+
+        return object instanceof Double ? (Double) object : alternative;
+    }
+
+    @Override
+    public double getDouble(String path) {
+        return this.getDouble(path, -1);
+    }
+
+    @Override
     public boolean getBoolean(String path, boolean alternative) {
         Object object = this.get(path);
         return object instanceof Boolean ? (Boolean) object : alternative;

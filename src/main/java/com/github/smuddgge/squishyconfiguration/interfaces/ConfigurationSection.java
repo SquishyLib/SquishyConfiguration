@@ -38,7 +38,7 @@ public interface ConfigurationSection {
 
     /**
      * Used to set or create a value in the configuration section
-     * and save in the base configuration section.
+     * and save it in the base configuration section.
      * <ul>
      *     <li>If the value is null it will remove the key and value.</li>
      *     <li>If the path is null, it will be set as the configuration section.</li>
@@ -97,7 +97,7 @@ public interface ConfigurationSection {
      * @param path The location of the value.
      * @param clazz The class to map the values onto.
      * @param alternative The alternative value.
-     * @return A instance of the class.
+     * @return An instance of the class.
      */
     <T> T getClass(String path, Class<T> clazz, T alternative);
 
@@ -110,7 +110,7 @@ public interface ConfigurationSection {
      * @param <T> The class type.
      * @param path The location of the value.
      * @param clazz The class to map the values onto.
-     * @return A instance of the class.
+     * @return An instance of the class.
      */
     <T> T getClass(String path, Class<T> clazz);
 
@@ -195,6 +195,60 @@ public interface ConfigurationSection {
      * @return The requested integer.
      */
     int getInteger(String path);
+
+    /**
+     * Used to get a long.
+     * <ul>
+     *      <li>If the path does not exist it will return the alternative value.</li>
+     *      <li>If the value is not a integer it will return the alternative value.</li>
+     *     <li>If the value is a integer it will be converted into a long</li>
+     * </ul>
+     *
+     * @param path The location of the long in the configuration section.
+     * @param alternative The alternative value.
+     * @return The requested long.
+     */
+    long getLong(String path, long alternative);
+
+    /**
+     * Used to get a long.
+     * <ul>
+     *     <li>If the path does not exist it will return -1.</li>
+     *     <li>If the value is not a integer it will return -1.</li>
+     *     <li>If the value is a integer it will be converted into a long</li>
+     * </ul>
+     *
+     * @param path The location of the long in the configuration section.
+     * @return The requested long.
+     */
+    long getLong(String path);
+
+    /**
+     * Used to get a double.
+     * <ul>
+     *      <li>If the path does not exist it will return the alternative value.</li>
+     *      <li>If the value is not a integer it will return the alternative value.</li>
+     *      <li>If the value is a integer it will be converted into a double</li>
+     * </ul>
+     *
+     * @param path The location of the double in the configuration section.
+     * @param alternative The alternative value.
+     * @return The requested double.
+     */
+    double getDouble(String path, long alternative);
+
+    /**
+     * Used to get a double.
+     * <ul>
+     *     <li>If the path does not exist it will return -1.</li>
+     *     <li>If the value is not a integer it will return -1.</li>
+     *     <li>If the value is a integer it will be converted into a double</li>
+     * </ul>
+     *
+     * @param path The location of the double in the configuration section.
+     * @return The requested double.
+     */
+    double getDouble(String path);
 
     /**
      * Used to get a boolean.
