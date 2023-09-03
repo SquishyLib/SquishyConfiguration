@@ -235,7 +235,7 @@ public interface ConfigurationSection {
      * @param alternative The alternative value.
      * @return The requested double.
      */
-    double getDouble(String path, long alternative);
+    double getDouble(String path, double alternative);
 
     /**
      * Used to get a double.

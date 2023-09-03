@@ -11,7 +11,7 @@
 ```
 
 <div align="center">
-    <a href="https://smuddgge.gitbook.io/leaf-3.5.0/">
+    <a href="https://smuddgge.gitbook.io/squishy-configuration/">
         <img src="https://raw.githubusercontent.com/smuddgge/Leaf/main/graphics/wiki.png" width="512">
     </a>
 </div>

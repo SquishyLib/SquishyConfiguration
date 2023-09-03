@@ -2,6 +2,7 @@ package com.github.smuddgge.squishyconfiguration.memory;
 
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
+import com.github.smuddgge.squishyconfiguration.utility.ConversionUtility;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
@@ -100,6 +101,8 @@ public class MemoryConfigurationSection implements ConfigurationSection {
 
     @Override
     public void setInSection(String path, Object value) {
+        value = ConversionUtility.convertLists(value);
+
         // If the value is located in a subsection
         if (path != null && path.contains(".")) {
             // Get the child path
@@ -261,7 +264,7 @@ public class MemoryConfigurationSection implements ConfigurationSection {
     }
 
     @Override
-    public double getDouble(String path, long alternative) {
+    public double getDouble(String path, double alternative) {
         Object object = this.get(path);
         if (object instanceof Integer) {
             return Double.parseDouble(object.toString());
