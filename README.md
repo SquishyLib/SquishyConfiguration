@@ -1,11 +1,24 @@
-Easy to use java yaml configuration API
+```yaml
+#  __             _     _           
+# / _\ __ _ _   _(_)___| |__  _   _
+# \ \ / _` | | | | / __| '_ \| | | |
+# _\ \ (_| | |_| | \__ \ | | | |_| |
+# \__/\__, |\__,_|_|___/_| |_|\__, |
+#        |_|                  |___/
+#
+# Easy to use Configuration Java Library
+# By Smudge
+```
 
-For more information see the [wiki!](https://github.com/smuddgge/SquishyYaml/wiki)
+<div align="center">
+    <a href="https://smuddgge.gitbook.io/leaf-3.5.0/">
+        <img src="https://raw.githubusercontent.com/smuddgge/Leaf/main/graphics/wiki.png" width="512">
+    </a>
+</div>
 
 # Dependency
 
 Replace `Tag` with this number
-Example: `1.0.0`
 > [![](https://jitpack.io/v/Smuddgge/SquishyYaml.svg)](https://jitpack.io/#Smuddgge/SquishyYaml)
 
 ## Maven dependency
