@@ -6,10 +6,8 @@ import com.github.smuddgge.squishyconfiguration.utility.ConversionUtility;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.ParameterizedType;
+import java.util.*;
 
 /**
  * Represents a yaml configuration section
@@ -238,6 +236,44 @@ public class MemoryConfigurationSection implements ConfigurationSection {
     }
 
     @Override
+    public boolean isString(String path) {
+        Object object = this.get(path);
+        return object instanceof String;
+    }
+
+    @Override
+    public String getAdaptedString(String path, String join) {
+        return this.getAdaptedString(path, join, null);
+    }
+
+    @Override
+    public String getAdaptedString(String path, String join, String alternative) {
+        Object object = this.get(path);
+        if (object == null) return alternative;
+
+        // Check if the object is a string.
+        if (object instanceof String) return (String) object;
+
+        // Check if the object is a list.
+        if (object instanceof List) {
+            List<?> list = (List<?>) object;
+            StringBuilder builder = new StringBuilder();
+
+            // Loop though list.
+            int index = 0;
+            for (Object item : list) {
+                builder.append(item.toString());
+                if (index + 1 != list.size()) builder.append(join);
+                index ++;
+            }
+
+            return builder.toString();
+        }
+
+        return String.valueOf(object);
+    }
+
+    @Override
     public int getInteger(String path, int alternative) {
         Object object = this.get(path);
         return object instanceof Integer ? (Integer) object : alternative;
@@ -246,6 +282,12 @@ public class MemoryConfigurationSection implements ConfigurationSection {
     @Override
     public int getInteger(String path) {
         return this.getInteger(path, -1);
+    }
+
+    @Override
+    public boolean isInteger(String path) {
+        Object object = this.get(path);
+        return object instanceof Integer;
     }
 
     @Override
@@ -264,6 +306,12 @@ public class MemoryConfigurationSection implements ConfigurationSection {
     }
 
     @Override
+    public boolean isLong(String path) {
+        Object object = this.get(path);
+        return object instanceof Integer || object instanceof Long;
+    }
+
+    @Override
     public double getDouble(String path, double alternative) {
         Object object = this.get(path);
         if (object instanceof Integer) {
@@ -279,6 +327,12 @@ public class MemoryConfigurationSection implements ConfigurationSection {
     }
 
     @Override
+    public boolean isDouble(String path) {
+        Object object = this.get(path);
+        return object instanceof Integer || object instanceof Double;
+    }
+
+    @Override
     public boolean getBoolean(String path, boolean alternative) {
         Object object = this.get(path);
         return object instanceof Boolean ? (Boolean) object : alternative;
@@ -290,6 +344,12 @@ public class MemoryConfigurationSection implements ConfigurationSection {
     }
 
     @Override
+    public boolean isBoolean(String path) {
+        Object object = this.get(path);
+        return object instanceof Boolean;
+    }
+
+    @Override
     public List<?> getList(String path, List<?> alternative) {
         Object object = this.get(path);
         return object instanceof List<?> ? (List<?>) object : alternative;
@@ -298,6 +358,12 @@ public class MemoryConfigurationSection implements ConfigurationSection {
     @Override
     public List<?> getList(String path) {
         return this.getList(path, null);
+    }
+
+    @Override
+    public boolean isList(String path) {
+        Object object = this.get(path);
+        return object instanceof List;
     }
 
     @Override
@@ -359,5 +425,11 @@ public class MemoryConfigurationSection implements ConfigurationSection {
     @Override
     public Map<String, Object> getMap(String path) {
         return this.getMap(path, null);
+    }
+
+    @Override
+    public boolean isMap(String path) {
+        Object object = this.get(path);
+        return object instanceof Map;
     }
 }

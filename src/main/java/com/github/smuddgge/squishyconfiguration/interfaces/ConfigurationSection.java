@@ -93,9 +93,10 @@ public interface ConfigurationSection {
      * <ul>
      *     <li>If the path does not exist the alternative value will be returned.</li>
      * </ul>
-     * @param <T> The class type.
-     * @param path The location of the value.
-     * @param clazz The class to map the values onto.
+     *
+     * @param <T>         The class type.
+     * @param path        The location of the value.
+     * @param clazz       The class to map the values onto.
      * @param alternative The alternative value.
      * @return An instance of the class.
      */
@@ -107,8 +108,9 @@ public interface ConfigurationSection {
      * <ul>
      *     <li>If the path does not exist null will be returned.</li>
      * </ul>
-     * @param <T> The class type.
-     * @param path The location of the value.
+     *
+     * @param <T>   The class type.
+     * @param path  The location of the value.
      * @param clazz The class to map the values onto.
      * @return An instance of the class.
      */
@@ -172,6 +174,43 @@ public interface ConfigurationSection {
     String getString(String path);
 
     /**
+     * Used to check if a value is a string.
+     *
+     * @param path The instance of the path.
+     * @return True if the value is a string.
+     */
+    boolean isString(String path);
+
+    /**
+     * Used to get the value as a string.
+     * <ul>
+     *     <li>If the path does not exist it will return null.</li>
+     *     <li>If the value is a list it will join the items with the join string.</li>
+     *     <li>If the value is any other object it will use {@link Object#toString()}.</li>
+     * </ul>
+     *
+     * @param path The location of the value.
+     * @param join The string to join lists with.
+     * @return The adapted string.
+     */
+    String getAdaptedString(String path, String join);
+
+    /**
+     * Used to get the value as a string.
+     * <ul>
+     *      <li>If the path does not exist it will return the alternative.</li>
+     *      <li>If the value is a list it will join the items with the join string.</li>
+     *      <li>If the value is any other object it will use {@link Object#toString()}.</li>
+     * </ul>
+     *
+     * @param path The location of the value.
+     * @param join The string to join lists with.
+     * @param alternative The alternative value.
+     * @return The adapted string.
+     */
+    String getAdaptedString(String path, String join, String alternative);
+
+    /**
      * Used to get an integer.
      * <ul>
      *     <li>If the path does not exist it will return the alternative value.</li>
@@ -197,6 +236,14 @@ public interface ConfigurationSection {
     int getInteger(String path);
 
     /**
+     * Used to check if a value is an integer.
+     *
+     * @param path The instance of the path.
+     * @return True if the value is an integer.
+     */
+    boolean isInteger(String path);
+
+    /**
      * Used to get a long.
      * <ul>
      *      <li>If the path does not exist it will return the alternative value.</li>
@@ -204,7 +251,7 @@ public interface ConfigurationSection {
      *     <li>If the value is a integer it will be converted into a long</li>
      * </ul>
      *
-     * @param path The location of the long in the configuration section.
+     * @param path        The location of the long in the configuration section.
      * @param alternative The alternative value.
      * @return The requested long.
      */
@@ -224,6 +271,14 @@ public interface ConfigurationSection {
     long getLong(String path);
 
     /**
+     * Used to check if a value is a long.
+     *
+     * @param path The instance of the path.
+     * @return True if the value is a long.
+     */
+    boolean isLong(String path);
+
+    /**
      * Used to get a double.
      * <ul>
      *      <li>If the path does not exist it will return the alternative value.</li>
@@ -231,7 +286,7 @@ public interface ConfigurationSection {
      *      <li>If the value is a integer it will be converted into a double</li>
      * </ul>
      *
-     * @param path The location of the double in the configuration section.
+     * @param path        The location of the double in the configuration section.
      * @param alternative The alternative value.
      * @return The requested double.
      */
@@ -249,6 +304,14 @@ public interface ConfigurationSection {
      * @return The requested double.
      */
     double getDouble(String path);
+
+    /**
+     * Used to check if a value is a double.
+     *
+     * @param path The instance of the path.
+     * @return True if the value is a double.
+     */
+    boolean isDouble(String path);
 
     /**
      * Used to get a boolean.
@@ -276,6 +339,14 @@ public interface ConfigurationSection {
     boolean getBoolean(String path);
 
     /**
+     * Used to check if a value is a boolean.
+     *
+     * @param path The instance of the path.
+     * @return True if the value is a boolean.
+     */
+    boolean isBoolean(String path);
+
+    /**
      * Used to get a list.
      * <ul>
      *     <li>If the path does not exist it will return the alternative value.</li>
@@ -299,6 +370,14 @@ public interface ConfigurationSection {
      * @return The requested list.
      */
     List<?> getList(String path);
+
+    /**
+     * Used to check if a value is a list.
+     *
+     * @param path The instance of the path.
+     * @return True if the value is a list.
+     */
+    boolean isList(String path);
 
     /**
      * Used to get a list of strings.
@@ -379,4 +458,12 @@ public interface ConfigurationSection {
      * @return A map representing the configuration section.
      */
     Map<String, Object> getMap(String path);
+
+    /**
+     * Used to check if a value is a map.
+     *
+     * @param path The instance of the path.
+     * @return True if the value is a map.
+     */
+    boolean isMap(String path);
 }
