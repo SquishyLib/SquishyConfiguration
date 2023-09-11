@@ -207,7 +207,12 @@ public class MemoryConfigurationSection implements ConfigurationSection {
         Map<String, Object> knownMap = new HashMap<>();
 
         for (Map.Entry<?, ?> entry : unknownMap.entrySet()) {
-            knownMap.put((String) entry.getKey(), entry.getValue());
+            Object key = entry.getKey();
+
+            knownMap.put(
+                    !(key instanceof String) ? key.toString() : (String) key,
+                    entry.getValue()
+            );
         }
 
         return new MemoryConfigurationSection(this.baseSection.getMap(), this.getBasePath(path), knownMap);
@@ -216,6 +221,7 @@ public class MemoryConfigurationSection implements ConfigurationSection {
     @Override
     public List<String> getKeys() {
         if (this.data == null) return null;
+        if (this.data.isEmpty()) return new ArrayList<>();
         return new ArrayList<>(this.data.keySet());
     }
 

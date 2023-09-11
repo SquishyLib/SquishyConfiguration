@@ -6,5 +6,5 @@ long: 100
 double: 0.0
 string: string
 listString:
-  - string
-  - string
+- string
+- string
