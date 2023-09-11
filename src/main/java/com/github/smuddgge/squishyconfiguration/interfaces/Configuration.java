@@ -1,9 +1,13 @@
 package com.github.smuddgge.squishyconfiguration.interfaces;
 
+import com.github.smuddgge.squishyconfiguration.ConfigurationFactory;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 
 /**
  * Represents a configuration file interface.
@@ -45,6 +49,26 @@ public interface Configuration extends ConfigurationSection {
     }
 
     /**
+     * Used to get the default path from the
+     * resource folder.
+     * <li>Example: "folder/test.yml"</li>
+     *
+     * @return The default path.
+     */
+    @Nullable String getDefaultPath();
+
+    /**
+     * Used to set the default path.
+     * This file will be loaded if the config
+     * file does not exist.
+     * <li>Example: "folder/test.yml"</li>
+     *
+     * @param path The path from the resource folder.
+     * @return This instance.
+     */
+    @NotNull Configuration setDefaultPath(@NotNull String path);
+
+    /**
      * Used to load the configuration file to the
      * class instance.
      *
@@ -68,6 +92,21 @@ public interface Configuration extends ConfigurationSection {
     @SuppressWarnings("all")
     default boolean createFile() {
         try {
+
+            String defaultPath = this.getDefaultPath();
+            if (defaultPath != null) {
+
+                // Attempt to copy the configuration file.
+                try (InputStream input = ConfigurationFactory.class.getResourceAsStream("/" + defaultPath)) {
+
+                    if (input != null) Files.copy(input, this.getFile().toPath());
+                    return true;
+
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                    return false;
+                }
+            }
 
             // Attempt to create a new file.
             return this.getFile().createNewFile();

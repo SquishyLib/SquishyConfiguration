@@ -26,7 +26,7 @@ public class YamlConfigurationTest {
         configuration.set("parent.child2", "string");
         configuration.save();
 
-        YamlConfiguration configuration2 = new YamlConfiguration(new File("src/main/resources"), "test.yaml");
+        Configuration configuration2 = YamlConfigurationTest.getConfiguration();
         configuration2.load();
 
         for (String key : configuration2.getKeys("parent")) {
@@ -44,7 +44,7 @@ public class YamlConfigurationTest {
         configuration.set("listString", new String[]{"string", "string"});
         configuration.save();
 
-        YamlConfiguration configuration2 = new YamlConfiguration(new File("src/main/resources"), "test.yaml");
+        Configuration configuration2 = YamlConfigurationTest.getConfiguration();
         configuration2.load();
 
         List<String> list = new ArrayList<>();
@@ -64,8 +64,10 @@ public class YamlConfigurationTest {
         configuration.set("string", "string");
         configuration.save();
 
-        YamlConfiguration configuration2 = new YamlConfiguration(new File("src/main/resources"), "test.yaml");
+        Configuration configuration2 = YamlConfigurationTest.getConfiguration();
         configuration2.load();
+
+        System.out.println(configuration2.getString("string"));
 
         if (!Objects.equals(configuration2.getString("string"), "string")) {
             throw new Exception();

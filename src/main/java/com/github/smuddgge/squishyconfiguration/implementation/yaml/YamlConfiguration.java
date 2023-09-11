@@ -1,12 +1,16 @@
 package com.github.smuddgge.squishyconfiguration.implementation.yaml;
 
-import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
+import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.HashMap;
 
@@ -18,6 +22,7 @@ import static org.yaml.snakeyaml.DumperOptions.FlowStyle.BLOCK;
 public class YamlConfiguration extends MemoryConfigurationSection implements Configuration {
 
     private @NotNull File file;
+    private @Nullable String defaultPath;
 
     /**
      * Used to create a representation of a configuration file.
@@ -48,6 +53,17 @@ public class YamlConfiguration extends MemoryConfigurationSection implements Con
     @Override
     public @NotNull File getFile() {
         return this.file;
+    }
+
+    @Override
+    public @Nullable String getDefaultPath() {
+        return this.defaultPath;
+    }
+
+    @Override
+    public @NotNull Configuration setDefaultPath(@NotNull String path) {
+        this.defaultPath = path;
+        return this;
     }
 
     @Override

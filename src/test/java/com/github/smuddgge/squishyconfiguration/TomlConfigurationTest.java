@@ -1,7 +1,5 @@
 package com.github.smuddgge.squishyconfiguration;
 
-import com.github.smuddgge.squishyconfiguration.implementation.toml.TomlConfiguration;
-import com.github.smuddgge.squishyconfiguration.implementation.yaml.YamlConfiguration;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +21,7 @@ public class TomlConfigurationTest {
         configuration.set("parent.child2", "string");
         configuration.save();
 
-        TomlConfiguration configuration2 = new TomlConfiguration(new File("src/main/resources"), "test.toml");
+        Configuration configuration2 = TomlConfigurationTest.getConfiguration();
         configuration2.load();
 
         for (String key : configuration2.getKeys("parent")) {

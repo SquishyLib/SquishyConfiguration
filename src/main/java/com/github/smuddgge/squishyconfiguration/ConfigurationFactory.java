@@ -56,7 +56,7 @@ public enum ConfigurationFactory {
      * Used to create a configuration file.
      *
      * @param folder The instance of the parent folder.
-     * @param path The location in the file without the extensions.
+     * @param path   The location in the file without the extensions.
      * @return The instance of a new configuration file instance.
      */
     public abstract Configuration create(File folder, String path);

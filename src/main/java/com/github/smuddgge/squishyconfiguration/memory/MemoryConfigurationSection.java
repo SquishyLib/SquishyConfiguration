@@ -1,13 +1,14 @@
 package com.github.smuddgge.squishyconfiguration.memory;
 
-import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import com.github.smuddgge.squishyconfiguration.utility.ConversionUtility;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a yaml configuration section
@@ -182,7 +183,7 @@ public class MemoryConfigurationSection implements ConfigurationSection {
             if (t == null) return alternative;
             return t;
 
-        } catch(Exception exception) {
+        } catch (Exception exception) {
             return alternative;
         }
     }
@@ -264,7 +265,7 @@ public class MemoryConfigurationSection implements ConfigurationSection {
             for (Object item : list) {
                 builder.append(item.toString());
                 if (index + 1 != list.size()) builder.append(join);
-                index ++;
+                index++;
             }
 
             return builder.toString();

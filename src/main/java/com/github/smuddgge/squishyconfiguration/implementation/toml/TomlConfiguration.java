@@ -1,10 +1,11 @@
 package com.github.smuddgge.squishyconfiguration.implementation.toml;
 
-import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
+import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 public class TomlConfiguration extends MemoryConfigurationSection implements Configuration {
 
     private File file;
+    private @Nullable String defaultPath;
 
     /**
      * Used to create a representation of a configuration file.
@@ -46,6 +48,17 @@ public class TomlConfiguration extends MemoryConfigurationSection implements Con
     @Override
     public @NotNull File getFile() {
         return this.file;
+    }
+
+    @Override
+    public @Nullable String getDefaultPath() {
+        return this.defaultPath;
+    }
+
+    @Override
+    public @NotNull Configuration setDefaultPath(@NotNull String path) {
+        this.defaultPath = path;
+        return this;
     }
 
     @Override

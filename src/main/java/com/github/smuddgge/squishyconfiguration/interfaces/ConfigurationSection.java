@@ -203,8 +203,8 @@ public interface ConfigurationSection {
      *      <li>If the value is any other object it will use {@link Object#toString()}.</li>
      * </ul>
      *
-     * @param path The location of the value.
-     * @param join The string to join lists with.
+     * @param path        The location of the value.
+     * @param join        The string to join lists with.
      * @param alternative The alternative value.
      * @return The adapted string.
      */

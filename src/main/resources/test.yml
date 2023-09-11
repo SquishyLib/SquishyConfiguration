@@ -1,4 +1,10 @@
-test:
-- test
-- test2
-- test3
+integer: 1
+parent:
+  child2: string
+  child1: string
+long: 100
+double: 0.0
+string: string
+listString:
+  - string
+  - string
