@@ -73,7 +73,7 @@ public class TomlConfiguration extends MemoryConfigurationSection implements Con
 
         // Check if the file doesn't exist
         // and attempt to create it.
-        if (!this.file.exists() & !this.createFile()) return false;
+        if (!this.file.exists() && !this.createFile()) return false;
 
         // Load the file content
         Toml toml = new Toml().read(this.file);
