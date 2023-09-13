@@ -13,6 +13,8 @@ public class ConversionUtility {
 
     /**
      * Used to convert arrays to list objects.
+     * <li>String[] -> List[String]</li>
+     * <li>int[] -> List[Integer]</li>
      *
      * @param object The instance of the object.
      * @return The converted object.

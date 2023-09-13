@@ -1,4 +1,4 @@
-package com.github.smuddgge.squishyconfiguration.implementation.yaml;
+package com.github.smuddgge.squishyconfiguration.implementation;
 
 import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;

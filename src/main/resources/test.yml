@@ -8,3 +8,5 @@ string: string
 listString:
 - string
 - string
+testObjects: testObjects
+testStrings: testStrings
