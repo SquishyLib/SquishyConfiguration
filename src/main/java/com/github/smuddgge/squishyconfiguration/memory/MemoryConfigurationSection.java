@@ -5,10 +5,7 @@ import com.github.smuddgge.squishyconfiguration.utility.ConversionUtility;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Represents a yaml configuration section
@@ -204,7 +201,7 @@ public class MemoryConfigurationSection implements ConfigurationSection {
 
         // Get the section and return it
         Map<?, ?> unknownMap = (Map<?, ?>) this.get(path);
-        Map<String, Object> knownMap = new HashMap<>();
+        Map<String, Object> knownMap = new LinkedHashMap<>();
 
         for (Map.Entry<?, ?> entry : unknownMap.entrySet()) {
             Object key = entry.getKey();
@@ -416,7 +413,7 @@ public class MemoryConfigurationSection implements ConfigurationSection {
     public Map<String, Object> getMap(String path, Map<String, Object> alternative) {
         try {
             Map<?, ?> temp = (Map<?, ?>) this.get(path);
-            Map<String, Object> map = new HashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
 
             for (Map.Entry<?, ?> entry : temp.entrySet()) {
                 map.put(entry.getKey().toString(), entry.getValue());
