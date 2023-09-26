@@ -10,6 +10,3 @@ listString:
 - string
 testObjects: testObjects
 testStrings: testStrings
-testLongs: 100
-testDoubles: 10.1
-testBooleans: true
