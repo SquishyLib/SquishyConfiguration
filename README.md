@@ -16,6 +16,11 @@
     </a>
 </div>
 
+```java
+Configuration configuration = new YamlConfiguration(new File("path.yml"));
+configuration.load();
+```
+
 # Dependency
 
 Replace `Tag` with this number

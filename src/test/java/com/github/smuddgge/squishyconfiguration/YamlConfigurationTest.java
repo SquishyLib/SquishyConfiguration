@@ -1,5 +1,7 @@
 package com.github.smuddgge.squishyconfiguration;
 
+import com.github.smuddgge.squishyconfiguration.implementation.YamlConfiguration;
+import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import com.github.smuddgge.squishyconfiguration.utility.AllConfigurationTester;
 import com.github.smuddgge.squishyconfiguration.utility.ConfigurationTester;
 import org.junit.jupiter.api.Test;
@@ -17,5 +19,8 @@ public class YamlConfigurationTest {
         );
 
         tester.testAll();
+
+        Configuration configuration = new YamlConfiguration(new File("path.yml"));
+        configuration.load();
     }
 }
