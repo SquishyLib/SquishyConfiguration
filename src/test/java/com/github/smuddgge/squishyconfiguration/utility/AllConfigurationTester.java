@@ -1,6 +1,7 @@
 package com.github.smuddgge.squishyconfiguration.utility;
 
 import com.github.smuddgge.squishyconfiguration.PreparedConfigurationFactory;
+import com.github.smuddgge.squishyconfiguration.console.Console;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -28,6 +29,7 @@ public class AllConfigurationTester extends ConfigurationCreator implements Conf
      * Used to test all data types.
      */
     public void testDataTypes() {
+        Console.log("&dTesting Data Types");
         ConfigurationTester tester = new DataTypeConfigurationTester(this.getFactory());
         tester.testAll();
     }

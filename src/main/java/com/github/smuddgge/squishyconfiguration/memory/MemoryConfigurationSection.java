@@ -424,6 +424,11 @@ public class MemoryConfigurationSection implements ConfigurationSection {
         List<Integer> list = new ArrayList<>();
 
         for (Object item : this.getList(path, new ArrayList<>())) {
+            if (item instanceof Long) {
+                list.add(Integer.parseInt(String.valueOf(item)));
+                continue;
+            }
+
             if (!(item instanceof Integer)) return alternative;
             list.add((Integer) item);
         }

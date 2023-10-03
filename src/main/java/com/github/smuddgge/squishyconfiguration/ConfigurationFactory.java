@@ -61,12 +61,12 @@ public enum ConfigurationFactory {
 
         @Override
         public @NotNull PreparedConfigurationFactory createPreparedFactory(@NotNull String path) {
-            return new PreparedConfigurationFactory(this, new File(path + ".yml"));
+            return new PreparedConfigurationFactory(this, new File(path + ".toml"));
         }
 
         @Override
         public @NotNull PreparedConfigurationFactory createPreparedFactory(@NotNull File folder, @NotNull String path) {
-            return new PreparedConfigurationFactory(this, new File(folder, path + ".yml"));
+            return new PreparedConfigurationFactory(this, new File(folder, path + ".toml"));
         }
 
         @Override
