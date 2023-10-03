@@ -114,7 +114,7 @@ public enum ConfigurationFactory {
      * This can then be used to create the configuration instance later.
      *
      * @param folder The instance of the folder containing the file.
-     * @param path The path from the folder to the file without the extensions.
+     * @param path   The path from the folder to the file without the extensions.
      * @return The prepared configuration factory.
      */
     public abstract @NotNull PreparedConfigurationFactory createPreparedFactory(@NotNull File folder, @NotNull String path);

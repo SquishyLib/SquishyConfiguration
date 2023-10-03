@@ -8,7 +8,9 @@ import com.github.smuddgge.squishyconfiguration.results.types.ResultNotNull;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a tester for getting values
@@ -26,6 +28,16 @@ public class DataTypeConfigurationTester extends ConfigurationCreator implements
         super(factory);
     }
 
+    /**
+     * Represents the test class
+     * used to test saving and loading classes.
+     */
+    private class TestClass {
+
+        public int value = 1;
+
+    }
+
     @Override
     public void testAll() {
         this.testObjects();
@@ -33,6 +45,10 @@ public class DataTypeConfigurationTester extends ConfigurationCreator implements
         this.testLongs();
         this.testDoubles();
         this.testBooleans();
+        this.testStringList();
+        this.testIntegerList();
+        this.testStringToObjectMap();
+        this.testClass();
     }
 
     /**
@@ -135,21 +151,94 @@ public class DataTypeConfigurationTester extends ConfigurationCreator implements
                 .then(() -> Console.log("&aPassed &7Booleans"));
     }
 
-    public void testGenericLists() {
+    /**
+     * Used to test getting and setting string lists.
+     */
+    public void testStringList() {
         Configuration configuration = this.create();
         configuration.load();
 
-        List<?> test = new ArrayList<>();
+        List<String> testList = new ArrayList<>();
+        testList.add("testItem1");
+        testList.add("testItem2");
 
-        configuration.set("testBooleans", true);
+        configuration.set("testStringList", testList);
 
         configuration.save();
         Configuration testLoad = this.create();
         testLoad.load();
 
         new ResultChecker()
-                .fallBack(() -> Console.log("&eFailed &7Booleans"))
-                .expect(testLoad.getBoolean("testBooleans", false), true)
-                .then(() -> Console.log("&aPassed &7Booleans"));
+                .fallBack(() -> Console.log("&eFailed &7String List"))
+                .expect(testLoad.getListString("testStringList").get(0), testList.get(0))
+                .then(() -> Console.log("&aPassed &7String List"));
+    }
+
+    /**
+     * Used to test getting and setting integer lists.
+     */
+    public void testIntegerList() {
+        Configuration configuration = this.create();
+        configuration.load();
+
+        List<Integer> testList = new ArrayList<>();
+        testList.add(2);
+        testList.add(3);
+
+        configuration.set("testIntegerList", testList);
+
+        configuration.save();
+        Configuration testLoad = this.create();
+        testLoad.load();
+
+        new ResultChecker()
+                .fallBack(() -> Console.log("&eFailed &7Integer List"))
+                .expect(testLoad.getListInteger("testIntegerList").get(0), testList.get(0))
+                .then(() -> Console.log("&aPassed &7Integer List"));
+    }
+
+    /**
+     * Used to test getting and setting string to object maps.
+     */
+    public void testStringToObjectMap() {
+        Configuration configuration = this.create();
+        configuration.load();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("key1", "value2");
+        map.put("key2", "value2");
+
+        configuration.set("testStringToObjectMap", map);
+
+        configuration.save();
+        Configuration testLoad = this.create();
+        testLoad.load();
+
+        new ResultChecker()
+                .fallBack(() -> Console.log("&eFailed &7String to Object Map"))
+                .expect(testLoad.getMap("testStringToObjectMap"), map)
+                .then(() -> Console.log("&aPassed &7String to Object Map"));
+    }
+
+    /**
+     * Used to test getting and setting classes.
+     */
+    public void testClass() {
+        Configuration configuration = this.create();
+        configuration.load();
+
+        // Create a test class.
+        TestClass testClass = new TestClass();
+
+        configuration.set("testClass", testClass);
+
+        configuration.save();
+        Configuration testLoad = this.create();
+        testLoad.load();
+
+        new ResultChecker()
+                .fallBack(() -> Console.log("&eFailed &7Classes"))
+                .expect(testLoad.getClass("testClass", TestClass.class).value, testClass.value)
+                .then(() -> Console.log("&aPassed &7Classes"));
     }
 }

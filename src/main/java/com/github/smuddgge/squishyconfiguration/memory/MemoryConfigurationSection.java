@@ -4,6 +4,8 @@ import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import com.github.smuddgge.squishyconfiguration.utility.ConversionUtility;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -118,7 +120,7 @@ public class MemoryConfigurationSection implements ConfigurationSection {
                     this.getSection(key).getMap()
             );
 
-            // Set the value in the section
+            // Set the value in the section.
             section.setInSection(remainingPath, value);
 
             // Get the updated section and update this section to the new data
@@ -139,7 +141,37 @@ public class MemoryConfigurationSection implements ConfigurationSection {
             return;
         }
 
-        this.data.put(path, value);
+        this.putData(path, value);
+    }
+
+    /**
+     * Used to put data into this memory section.
+     * This will check if the object is supported
+     * and if it is a custom class that needs to be converted.
+     *
+     * @param path  The instance of the path.
+     * @param value The object value.
+     */
+    private void putData(@Nullable String path, @NotNull Object value) {
+
+        // Check if it is a type supported.
+        if (value instanceof String
+                || value instanceof Integer
+                || value instanceof Long
+                || value instanceof Double
+                || value instanceof Boolean
+                || value instanceof List
+                || value instanceof Map) {
+
+            this.data.put(path, value);
+            return;
+        }
+
+        // Otherwise convert as gson.
+        Gson gson = new Gson();
+        String json = gson.toJson(value);
+        Map<?, ?> map = gson.fromJson(json, Map.class);
+        this.data.put(path, map);
     }
 
     @Override

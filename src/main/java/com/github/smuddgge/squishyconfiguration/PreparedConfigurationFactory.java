@@ -20,7 +20,7 @@ public class PreparedConfigurationFactory {
      * Used to create aa prepared configuration factory.
      *
      * @param factory The instance of the type factory.
-     * @param file The instance of the config file.
+     * @param file    The instance of the config file.
      */
     public PreparedConfigurationFactory(@NotNull ConfigurationFactory factory, @NotNull File file) {
         this.factory = factory;

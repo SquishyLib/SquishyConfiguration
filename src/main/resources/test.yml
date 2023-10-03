@@ -1,15 +1,16 @@
-integer: 1
-parent:
-  child2: string
-  child1: string
-long: 100
-double: 0.0
-string: string
-listString:
-- string
-- string
 testObjects: testObjects
 testStrings: testStrings
 testLongs: 100
 testDoubles: 10.1
 testBooleans: true
+testStringList:
+- testItem1
+- testItem2
+testIntegerList:
+- 2
+- 3
+testStringToObjectMap:
+  key1: value2
+  key2: value2
+testClass:
+  value: 1.0

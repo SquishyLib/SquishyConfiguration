@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public class TomlConfiguration extends MemoryConfigurationSection implements Configuration {
 
-    private File file;
+    private final File file;
     private @Nullable String defaultPath;
 
     /**
