@@ -316,7 +316,7 @@ public class MemoryConfigurationSection implements ConfigurationSection {
             return (Integer) object;
         }
         if (object instanceof Double) {
-            return (int) object;
+            return ((Double) object).intValue();
         }
         if (object instanceof Long) {
             return ((Long) object).intValue();
