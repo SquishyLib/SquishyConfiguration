@@ -14,3 +14,4 @@ testStringToObjectMap:
   key2: value2
 testClass:
   value: 1.0
+testIntegers: 64

@@ -212,6 +212,7 @@ public interface ConfigurationSection {
 
     /**
      * Used to get an integer.
+     * Will attempt to convert doubles and longs to int.
      * <ul>
      *     <li>If the path does not exist it will return the alternative value.</li>
      *     <li>If the value is not a integer it will return the alternative value.</li>
@@ -225,6 +226,7 @@ public interface ConfigurationSection {
 
     /**
      * Used to get an integer.
+     * Will attempt to convert doubles and longs to int.
      * <ul>
      *     <li>If the path does not exist it will return -1.</li>
      *     <li>If the value is not a integer it will return -1.</li>
@@ -237,6 +239,9 @@ public interface ConfigurationSection {
 
     /**
      * Used to check if a value is an integer.
+     * This won't return true if its double or long but
+     * this library will try to convert it if the
+     * {@link this#getInteger(String)} is called.
      *
      * @param path The instance of the path.
      * @return True if the value is an integer.

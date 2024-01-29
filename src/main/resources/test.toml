@@ -1,6 +1,7 @@
 testStrings = "testStrings"
 testDoubles = 10.1
 testIntegerList = [2, 3]
+testIntegers = 64
 testBooleans = true
 testStringList = ["testItem1", "testItem2"]
 testObjects = "testObjects"

@@ -312,7 +312,16 @@ public class MemoryConfigurationSection implements ConfigurationSection {
     @Override
     public int getInteger(String path, int alternative) {
         Object object = this.get(path);
-        return object instanceof Integer ? (Integer) object : alternative;
+        if (object instanceof Integer) {
+            return (Integer) object;
+        }
+        if (object instanceof Double) {
+            return (int) object;
+        }
+        if (object instanceof Long) {
+            return ((Long) object).intValue();
+        }
+        return alternative;
     }
 
     @Override

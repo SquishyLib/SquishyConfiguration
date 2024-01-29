@@ -42,6 +42,7 @@ public class DataTypeConfigurationTester extends ConfigurationCreator implements
     public void testAll() {
         this.testObjects();
         this.testStrings();
+        this.testIntegers();
         this.testLongs();
         this.testDoubles();
         this.testBooleans();
@@ -90,6 +91,23 @@ public class DataTypeConfigurationTester extends ConfigurationCreator implements
                 .expect(testLoad.getString("testStrings"), new ResultNotNull())
                 .expect(testLoad.getString("testStrings"), "testStrings")
                 .then(() -> Console.log("&aPassed &7Strings"));
+    }
+
+    public void testIntegers() {
+        Configuration configuration = this.create();
+        configuration.load();
+
+        configuration.set("testIntegers", 64);
+
+        configuration.save();
+        Configuration testLoad = this.create();
+        testLoad.load();
+
+        new ResultChecker()
+                .fallBack(() -> Console.log("&eFailed &7Integers"))
+                .expect(testLoad.getInteger("testIntegers"), new ResultNotNull())
+                .expect(testLoad.getInteger("testIntegers"), 64)
+                .then(() -> Console.log("&aPassed &7Integers"));
     }
 
     /**
