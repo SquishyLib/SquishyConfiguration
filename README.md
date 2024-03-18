@@ -24,7 +24,7 @@ configuration.load();
 # Dependency
 
 Replace `Tag` with this number
-> [![](https://jitpack.io/v/Smuddgge/SquishyYaml.svg)](https://jitpack.io/#Smuddgge/SquishyYaml)
+> [![](https://jitpack.io/v/smuddgge/SquishyConfiguration.svg)](https://jitpack.io/#smuddgge/SquishyConfiguration)
 
 ## Maven dependency
 ```xml
