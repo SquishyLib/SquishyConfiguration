@@ -24,6 +24,7 @@ import com.github.smuddgge.squishyconfiguration.interfaces.Configuration;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -178,6 +179,41 @@ public class ConfigurationDirectory extends MemoryConfigurationSection {
 
     public @NotNull File getDirectory() {
         return this.directory;
+    }
+
+    /**
+     * Used to get the directory within this directory given a path.
+     * <p>
+     * Example path:
+     * <pre>{@code
+     * untitled_folder.untitled_folder_2
+     * }</pre>
+     * <p>
+     * Returns empty if the folder doesn't exist.
+     *
+     * @param path The dot path.
+     * @return The folder instance.
+     */
+    public @NotNull Optional<File> getDirectory(@Nullable String path) {
+        return Optional.ofNullable(this.getDirectory0(this.getDirectory(), path));
+    }
+
+    private @Nullable File getDirectory0(@NotNull File file, @Nullable String path) {
+        if (path == null || path.equals("")) return file;
+
+        // Check if there is a dot at the start.
+        if (path.startsWith(".")) path = path.substring(1);
+
+        String folderName = path.split("\\.")[0];
+        File[] fileList = file.listFiles();
+        if (fileList == null) return null;
+
+        for (File temp : fileList) {
+            if (!temp.getName().equals(folderName)) continue;
+            return this.getDirectory0(temp, path.substring(folderName.length()));
+        }
+
+        return null;
     }
 
     public @NotNull String getDirectoryName() {
