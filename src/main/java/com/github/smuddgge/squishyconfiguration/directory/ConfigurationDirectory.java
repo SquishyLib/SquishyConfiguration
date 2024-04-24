@@ -522,8 +522,7 @@ public class ConfigurationDirectory extends MemoryConfigurationSection {
 
             // Get the name of the file.
             final String name = resourcePath
-                    .substring(resourcePath.lastIndexOf('/') + 1)
-                    .split("\\.")[0];
+                    .substring(resourcePath.lastIndexOf('/') + 1);
 
             // Create new file instance.
             File file = new File(this.getDirectory(), name);
