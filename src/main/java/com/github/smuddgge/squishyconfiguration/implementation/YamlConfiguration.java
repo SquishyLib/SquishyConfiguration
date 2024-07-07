@@ -22,7 +22,7 @@ import static org.yaml.snakeyaml.DumperOptions.FlowStyle.BLOCK;
 public class YamlConfiguration extends MemoryConfigurationSection implements Configuration {
 
     private @NotNull File file;
-    private @Nullable String defaultPath;
+    private @Nullable String resourcePath;
 
     /**
      * Used to create a representation of a configuration file.
@@ -56,22 +56,25 @@ public class YamlConfiguration extends MemoryConfigurationSection implements Con
     }
 
     @Override
-    public @Nullable String getDefaultPath() {
-        return this.defaultPath;
+    public @Nullable String getResourcePath() {
+        return this.resourcePath;
     }
 
     @Override
-    public @NotNull Configuration setDefaultPath(@NotNull String path) {
-        this.defaultPath = path;
+    public @NotNull Configuration setResourcePath(@NotNull String resourcePath) {
+        this.resourcePath = resourcePath;
         return this;
     }
 
     @Override
     @SuppressWarnings("all")
     public boolean load() {
+
+        // Get the instance of the file.
         this.file = new File(this.getAbsolutePath());
 
-        // Check if the folder doesn't exist
+        // Check if the folder doesn't exist and create
+        // the folders needed.
         if (!this.file.getParentFile().exists()
                 && !this.file.getParentFile().mkdirs()) {
 

@@ -49,16 +49,16 @@ public interface Configuration extends ConfigurationSection {
     }
 
     /**
-     * Used to get the default path from the
+     * Used to get the resource path from the
      * resource folder.
      * <li>Example: "folder/test.yml"</li>
      *
      * @return The default path.
      */
-    @Nullable String getDefaultPath();
+    @Nullable String getResourcePath();
 
     /**
-     * Used to set the default path.
+     * Used to set the resource path.
      * This file will be loaded if the config
      * file does not exist.
      * <li>Example: "folder/test.yml"</li>
@@ -66,7 +66,7 @@ public interface Configuration extends ConfigurationSection {
      * @param path The path from the resource folder.
      * @return This instance.
      */
-    @NotNull Configuration setDefaultPath(@NotNull String path);
+    @NotNull Configuration setResourcePath(@NotNull String path);
 
     /**
      * Used to load the configuration file to the
@@ -93,7 +93,7 @@ public interface Configuration extends ConfigurationSection {
     default boolean createFile() {
         try {
 
-            String defaultPath = this.getDefaultPath();
+            String defaultPath = this.getResourcePath();
             if (defaultPath != null) {
 
                 // Attempt to copy the configuration file.

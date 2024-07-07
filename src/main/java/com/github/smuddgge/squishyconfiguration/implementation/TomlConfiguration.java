@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class TomlConfiguration extends MemoryConfigurationSection implements Configuration {
 
     private final File file;
-    private @Nullable String defaultPath;
+    private @Nullable String resourcePath;
 
     /**
      * Used to create a representation of a configuration file.
@@ -51,13 +51,13 @@ public class TomlConfiguration extends MemoryConfigurationSection implements Con
     }
 
     @Override
-    public @Nullable String getDefaultPath() {
-        return this.defaultPath;
+    public @Nullable String getResourcePath() {
+        return this.resourcePath;
     }
 
     @Override
-    public @NotNull Configuration setDefaultPath(@NotNull String path) {
-        this.defaultPath = path;
+    public @NotNull Configuration setResourcePath(@NotNull String resourcePath) {
+        this.resourcePath = resourcePath;
         return this;
     }
 
